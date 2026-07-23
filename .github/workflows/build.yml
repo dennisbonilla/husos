@@ -3,7 +3,7 @@ name: Construir APK
 on:
   push:
     branches: [ main, master ]
-  workflow_dispatch:   # permite lanzarlo a mano desde la pestaña Actions
+  workflow_dispatch:
 
 jobs:
   build:
@@ -26,14 +26,31 @@ jobs:
       - name: Generar estructura Android del proyecto
         run: flutter create --platforms=android --org cr.pura --project-name husos .
 
-      - name: Colocar el código de la app
-        run: cp husos_main.dart lib/main.dart
+      - name: Colocar el codigo de la app
+        run: |
+          cp husos_main.dart lib/main.dart
+          cp splash_screen.dart lib/splash_screen.dart
 
-      - name: Añadir dependencia de zonas horarias
-        run: flutter pub add timezone
+      - name: Anadir dependencias
+        run: |
+          flutter pub add timezone
+          flutter pub add dev:flutter_launcher_icons
+          flutter pub add flutter_native_splash
+
+      - name: Configurar icono y splash
+        run: cat icon_splash_config.yaml >> pubspec.yaml
 
       - name: Descargar dependencias
         run: flutter pub get
+
+      - name: Generar iconos de lanzador
+        run: dart run flutter_launcher_icons
+
+      - name: Generar splash nativo
+        run: dart run flutter_native_splash:create
+
+      - name: Poner el nombre visible de la app
+        run: sed -i 's/android:label="husos"/android:label="Husos"/' android/app/src/main/AndroidManifest.xml
 
       - name: Compilar APK (release)
         run: flutter build apk --release

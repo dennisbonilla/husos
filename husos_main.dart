@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tzdata;
+import 'splash_screen.dart';
 
 // ---- paleta ("cronómetro náutico") ---------------------------------------
 const _bg = Color(0xFF0C1626);
@@ -118,7 +119,7 @@ class HusosApp extends StatelessWidget {
         canvasColor: _panel,
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const SplashScreen(next: HomePage()),
     );
   }
 }

@@ -6,6 +6,19 @@ día/noche (sol o luna) según la hora de esa ciudad, y avisa cuando cae en el
 "día siguiente" o "día anterior". Incluye ~65 zonas horarias, con Centroamérica
 y Costa Rica de primeras.
 
+Al abrir, muestra una pantalla de bienvenida con los dos relojes girando hasta
+sincronizarse y el crédito **Created by Dennis Bonilla**. El ícono de la app son
+las dos carátulas superpuestas en latón sobre azul medianoche.
+
+## Archivos
+
+- `husos_main.dart` — la app (relojes, zonas, arrastre de manecillas)
+- `splash_screen.dart` — pantalla de bienvenida animada con el crédito
+- `icon/icon.png` — ícono base (1024×1024)
+- `icon/icon_foreground.png` — capa frontal para íconos adaptativos de Android
+- `icon_splash_config.yaml` — ajustes de ícono y splash nativo
+- `.github/workflows/build.yml` — compila el APK en la nube
+
 ## Opción A — obtener el APK sin instalar nada (recomendada)
 
 Todo se compila solo en la nube con GitHub Actions.
@@ -33,8 +46,14 @@ Necesitás el SDK de Flutter instalado (https://docs.flutter.dev/get-started/ins
 ```bash
 flutter create --platforms=android --org cr.pura --project-name husos .
 cp husos_main.dart lib/main.dart
+cp splash_screen.dart lib/splash_screen.dart
 flutter pub add timezone
+flutter pub add dev:flutter_launcher_icons
+flutter pub add flutter_native_splash
+cat icon_splash_config.yaml >> pubspec.yaml
 flutter pub get
+dart run flutter_launcher_icons
+dart run flutter_native_splash:create
 flutter build apk --release
 ```
 

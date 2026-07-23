@@ -1,0 +1,14 @@
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "icon/icon.png"
+  adaptive_icon_background: "#0C1626"
+  adaptive_icon_foreground: "icon/icon_foreground.png"
+
+flutter_native_splash:
+  color: "#0C1626"
+  image: "icon/icon_foreground.png"
+  android_12:
+    color: "#0C1626"
+    image: "icon/icon_foreground.png"
